@@ -2,13 +2,16 @@
 import { ref } from "vue";
 const quote = ref("First, solve the problem. then write the code.");
 const author = ref("John Johnson");
+const authorHref = ref("https://www.google.com");
 </script>
 
 <template>
   <main>
     <section>
       <p>{{ quote }}</p>
-      <span> {{ author }} </span>
+      <span>
+        <a v-bind:href="authorHref">{{ author }}</a>
+      </span>
     </section>
     <button>Another!</button>
   </main>
@@ -48,7 +51,8 @@ main p:after {
   content: '"';
 }
 
-main span {
+main span,
+main a {
   align-self: end;
   color: #406473;
 }

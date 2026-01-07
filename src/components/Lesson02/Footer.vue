@@ -2,11 +2,16 @@
 import { ref } from "vue";
 const author = ref("Professor pickle");
 const year = ref(2025);
+const href = ref("https://www.google.com");
 </script>
 
 <template>
   <footer>
-    Created by <span>{{ author }}</span> &copy; {{ year }}
+    Created by
+    <a v-bind:href="href"
+      ><span>{{ author }}</span></a
+    >
+    &copy; {{ year }}
   </footer>
 </template>
 
@@ -18,6 +23,9 @@ footer {
   text-align: center;
   color: #ccd6d9;
   padding-bottom: 28px;
+}
+footer a {
+  color: white;
 }
 
 footer span {
