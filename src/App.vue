@@ -1,53 +1,46 @@
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
-</script>
+<!-- script es para meter la logica (javascript) del componente  -->
 
+<script setup>
+import { ref } from "vue";
+const name = ref("Albert");
+const emoji = ref("👋");
+const year = ref(new Date().getFullYear());
+</script>
+<!-- template es para meter el HTML del componente -->
 <template>
   <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
+    <span>
+      {{ emoji }}
+    </span>
+    <main>
+      <h1>Hello, I'm {{ name }}</h1>
+      <p>
+        I'm about to learn Vue!
+        <a href="https://vuejs.org/" target="_blank">Vue.js</a>!
+      </p>
+    </main>
+    <footer>
+      <p>&copy; {{ year }}</p>
+    </footer>
   </header>
-
-  <main>
-    <TheWelcome />
-  </main>
 </template>
-
+<!-- style es para meter el CSS del componente -->
 <style scoped>
-header {
-  line-height: 1.5;
+header span {
+  font-size: 3rem;
 }
-
-.logo {
+main h1 {
   display: block;
-  margin: 0 auto 2rem;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+main a {
+  color: #42b883;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 20px;
+}
+footer p {
+  color: rgb(21, 221, 188);
 }
 </style>
