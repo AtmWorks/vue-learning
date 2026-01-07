@@ -1,7 +1,13 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+const author = ref("Professor pickle");
+const year = ref(2025);
+</script>
 
 <template>
-  <footer>Created by <span>Professor pickle</span> &copy; 2025</footer>
+  <footer>
+    Created by <span>{{ author }}</span> &copy; {{ year }}
+  </footer>
 </template>
 
 <style scoped>

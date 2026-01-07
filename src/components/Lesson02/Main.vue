@@ -1,10 +1,14 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+const quote = ref("First, solve the problem. then write the code.");
+const author = ref("John Johnson");
+</script>
 
 <template>
   <main>
     <section>
-      <p>First, solve the problem. then write the code.</p>
-      <span> John Johnson </span>
+      <p>{{ quote }}</p>
+      <span> {{ author }} </span>
     </section>
     <button>Another!</button>
   </main>
