@@ -1,30 +1,45 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, type Ref } from "vue";
+
+//lesson 1: reactive variables
+const addUntil10 = () => {
+  number.value++;
+  if (number.value > 10) {
+    number.value = 0;
+  }
+};
+const myId = "patata";
+const number: Ref<number> = ref(0);
+const inputValue: Ref<string> = ref("some value");
+
+setInterval(() => {
+  addUntil10();
+}, 1000);
+
+//lesson 2: dinamic classes
+let classDefiner = true;
+setInterval(() => {
+  classDefiner = !classDefiner;
+}, 2000);
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <!-- <h1 v-bind:id="myId" :class="classDefiner ? 'title' : 'other-title'"> -->
+  <h1
+    v-bind:id="myId"
+    :class="{ title: classDefiner, 'other-title': !classDefiner }"
+  >
+    Hola!
+  </h1>
+  <h2 @click="addUntil10">{{ number }}</h2>
+  <input type="text" v-model="inputValue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.title {
+  color: #42b983;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.other-title {
+  color: #b84283;
 }
 </style>
