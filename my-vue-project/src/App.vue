@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
+import ImageRowDisplay from "./components/AnimalsDisplay.vue";
 
 //lesson 1: reactive variables
-
-const myId = "patata";
+const myId = "ID01";
 const refNumber: Ref<number> = ref(0);
 const inputValue: Ref<string> = ref("v-model value");
 
@@ -27,7 +27,7 @@ setInterval(() => {
 //lesson 3: v-for lists
 const renderList: Array<string> = ["item 1", "item 2", "item 3", "item 4"];
 
-//lesson 4: v-for objectos
+//lesson 4: v-for objectos / jerarquia de props
 const animals: Array<{ name: string; id: number; image: string }> = [
   {
     name: "dog",
@@ -36,7 +36,7 @@ const animals: Array<{ name: string; id: number; image: string }> = [
       "https://img.freepik.com/foto-gratis/perro-pug-aislado-sobre-fondo-blanco_2829-11416.jpg?semt=ais_hybrid&w=740&q=80",
   },
   {
-    name: "gato",
+    name: "cat",
     id: 2,
     image:
       "https://media.istockphoto.com/id/1443562748/es/foto/lindo-gato-de-jengibre.jpg?s=612x612&w=0&k=20&c=JVC5Z3LxpaTQaXu_fMZjIb73r39z6b0SnAxvNI8iZG0=",
@@ -48,6 +48,7 @@ const animals: Array<{ name: string; id: number; image: string }> = [
       "https://www.zooplus.es/magazine/wp-content/uploads/2018/08/s%C3%BC%C3%9F-hamster.webp",
   },
 ];
+
 </script>
 
 <template>
@@ -69,12 +70,8 @@ const animals: Array<{ name: string; id: number; image: string }> = [
   </div>
   <h2 @click="addUntil10">{{ refNumber }}</h2>
   <input type="text" v-model="inputValue" class="inputTextVmoldel" />
-  <div class="animals">
-    <div v-for="animal in animals" :key="animal.id">
-      <h3>{{ animal.name }}</h3>
-      <img :src="animal.image" :alt="animal.name" width="200" height="200" />
-    </div>
-  </div>
+  <ImageRowDisplay :animals = "animals" ></ImageRowDisplay>
+
 </template>
 
 <style scoped>
@@ -84,13 +81,7 @@ const animals: Array<{ name: string; id: number; image: string }> = [
 .other-title {
   color: #b84283;
 }
-.animals {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
 .list-item-box {
-  /* widht should be as big as the size determined by the items inside */
   width: fit-content;
   padding-right: 50px;
   padding-left: 50px;
@@ -108,10 +99,8 @@ const animals: Array<{ name: string; id: number; image: string }> = [
   width: 200px;
   padding: 10px;
   padding-left: 5%;
-  /* rounded corners, all corners */
   border-radius: 50px;
   border: 2px solid #72ce78;
-  /* when clicked or focus, change to yellow and back to normal size*/
 }
 .inputTextVmoldel:focus,
 .inputTextVmoldel:hover {
@@ -119,12 +108,5 @@ const animals: Array<{ name: string; id: number; image: string }> = [
   transform: scale(1.05);
   outline: none;
 }
-.animals img {
-  border-radius: 15px;
-  border: 5px solid #72ce78;
-}
-.animals img:hover {
-  border: 5px solid #b84283;
-  transform: scale(1.05);
-}
+
 </style>
