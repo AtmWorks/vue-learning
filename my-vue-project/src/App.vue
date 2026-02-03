@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
+import { ref, watch, type Ref } from "vue";
 import ImageRowDisplay from "./components/AnimalsDisplay.vue";
 
 //lesson 1: reactive variables
 const myId = "ID01";
 const refNumber: Ref<number> = ref(0);
-const inputValue: Ref<string> = ref("v-model value");
+const inputValue: Ref<string> = ref("");
 
 const addUntil10 = () => {
   refNumber.value++;
@@ -49,6 +49,43 @@ const animals: Array<{ name: string; id: number; image: string }> = [
   },
 ];
 
+//lesson 5: emits y event handling
+import Login from "./components/Login.vue";
+const isLogged: Ref<boolean> = ref(false);
+const userName: Ref<string> = ref("user123");
+const checkLogin = (name: string) => {
+  if (name && name.length > 0 && name == userName.value) {
+    // isLogged.value = true;
+    manageLogin(true);
+    if (isLogged.value) {
+      console.log("User logged in:", name);
+      // manageLogin(false);
+    }
+  } else {
+    isLogged.value = false;
+  }
+};
+const manageLogin = (value: boolean) => {
+  isLogged.value = value;
+};
+
+//Lesson personal: manage image search
+const searchAnimals: Ref<
+  Array<{ name: string; id: number; image: string }>
+> = ref([]);
+const manageSearch = (animalName: string) => {
+  if (animalName.length == 0 || animalName == "v-model value") {
+    searchAnimals.value.splice(0, searchAnimals.value.length, ...animals);
+  } else {
+    const filtered = animals.filter((animal) =>
+      animal.name.toLowerCase().includes(animalName.toLowerCase())
+    );
+    searchAnimals.value.splice(0, searchAnimals.value.length, ...filtered);
+  }
+};
+watch(inputValue, (newValue) => {
+  manageSearch(newValue);
+});
 </script>
 
 <template>
@@ -69,8 +106,9 @@ const animals: Array<{ name: string; id: number; image: string }> = [
     </p>
   </div>
   <h2 @click="addUntil10">{{ refNumber }}</h2>
-  <input type="text" v-model="inputValue" class="inputTextVmoldel" />
-  <ImageRowDisplay :animals = "animals" ></ImageRowDisplay>
+  <input placeholder="Search an animal" type="text" v-model="inputValue" class="inputTextVmoldel" enter-key-hint="Search animal" />
+  <ImageRowDisplay :animals = "searchAnimals" ></ImageRowDisplay>
+  <Login :isLogged="isLogged" :requiredUserName = "userName" @login="checkLogin"> </Login>
 
 </template>
 
@@ -108,5 +146,6 @@ const animals: Array<{ name: string; id: number; image: string }> = [
   transform: scale(1.05);
   outline: none;
 }
+
 
 </style>

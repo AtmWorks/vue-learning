@@ -39,6 +39,7 @@ defineProps({
 .animals {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   gap: 20px;
 }
 .animals img {
